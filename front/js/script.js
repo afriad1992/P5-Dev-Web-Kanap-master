@@ -1,23 +1,23 @@
 
-const api="http://localhost:3000/api/products/";
-var items=document.getElementById("items");
-items.innerHTML="";
- 
-async function getProduct(){
-    const response = await fetch(api);
-    const data = await response.json()
-    data.forEach(produit => {
-        items.innerHTML+="<a href='./product.html?id="+produit._id+"'><article><img src='"+produit.imageUrl+"' alt='"+produit.altTxt+"'><h3 class='productName'>"+produit.name+"</h3><p class='productDescription'>"+produit.description+"</p> </article></a>";
 
-    });
-  
+class index{
+    constructor(){
+        this.items=document.getElementById("items");
+        this.api=new API("products");
+        this.template=new Template; 
+    }
 
+       async  displayProducts(){
+        const data=await this.api.getProducts();
+        data.forEach(produit => {this.items.appendChild(this.template.displayProductIndex(produit)) });   
+    }    
 
-}
-
+} 
 
 
 
 
 
-getProduct();
+const Index=new index;
+
+Index.displayProducts();
